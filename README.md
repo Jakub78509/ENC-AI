@@ -6,5 +6,3 @@ Repozitář pro odevzdávání úkolů z předmětu **ENC-AI**.
 
 - **`main`**: čistá větev bez úkolů
 - **ukol1**: Studijní úkol - Úvod do světa moderní AI
-
-```
