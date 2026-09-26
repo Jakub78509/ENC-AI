@@ -1,0 +1,8 @@
+(i) 'n d, d -> n': každý řádek X se skalárně vynásobí s w, takže se násobí podél společné osy d, ta se sečte a zůstane vektor délky n.
+
+(ii) 'n d, m d -> n m': prvek (n, m) je skalární součin řádku n a řádku m, proto má druhá kopie X jiné jméno osy řádků (m), osa d se sečte a vznikne matice n×n.
+
+(iii) 'n d, n d -> d': stejná jména os znamenají násobení prvek po prvku (X²) a sečtením přes řádky n vznikne pro každý sloupec d jeho čtvercová norma.
+
+
+Odkaz na AI, které vysvětlilo: https://share.gemini.google/Cfse44wHj0DD
