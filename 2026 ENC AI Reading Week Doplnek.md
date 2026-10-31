@@ -27,19 +27,19 @@ Představte si dva velké internetové prodejce (např. Amazon a Walmart), kteř
 
 **1\. Proč je v jednorázovém Vězňově dilematu profil $(D,D)$ jedinou Nashovou rovnováhou, přestože $(C,C)$ přináší vyšší celkový užitek?**
 
-**Odpověď:**&nbsp;
+**Odpověď:** Protože zrada $D$ je pro oba hráče **dominantní strategie**. Ať soupeř zvolí cokoliv, $D$ přinese víc: proti $C$ je $5 > 3$, proti $D$ je $1 > 0$. V profilu $(D,D)$ si tedy nikdo jednostrannou změnou nepomůže (přechod na $C$ by snížil zisk z 1 na 0), což je definice Nashovy rovnováhy. V $(C,C)$ má naopak každý motivaci odchýlit se na $D$ ($5 > 3$), takže $(C,C)$ rovnováhou není. Vyšší společný užitek $(C,C)$ by vyžadoval závaznou dohodu nebo opakovanou hru s možností odvety, kterou jednorázová hra nemá.
 
 &nbsp;
 
 **2\. V jakém produkčním scénáři distribuovaných systémů je vhodné použiít rozhodování podle principu Minimax místo očekávané utility?**
 
-**Odpověď:**&nbsp;
+**Odpověď:** Všude, kde nelze předpokládat spolupracujícího ani „průměrného“ aktéra a kde selhání nejhoršího případu má kritické následky. Jde hlavně o **adversariální prostředí**: ochrana proti DDoS a rate-limiting, návrh konsenzu odolného vůči byzantským (zlomyslným) uzlům, bezpečnostní protokoly a autentizace, dimenzování kapacity pro špičky a výpadky (SLA). Očekávaná utilita potřebuje známé pravděpodobnosti chování ostatních a optimalizuje průměr. Útočník ale cíleně volí to nejhorší, takže je správné maximalizovat garantované minimum.
 
 &nbsp;
 
 **3\. Jaký je zásadní rozdíl mezi Pareto optimalitou a Nashovou rovnováhou ve Vězňově dilematu?**
 
-**Odpověď:**&nbsp;
+**Odpověď:** **Pareto optimalita** je kolektivní kritérium: nelze nikomu přilepšit, aniž by si jiný pohoršil. Ve Vězňově dilematu jsou Pareto optimální $(C,C)$, $(C,D)$ i $(D,C)$, jen $(D,D)$ není, protože $(C,C)$ je pro oba lepší. **Nashova rovnováha** je individuální kritérium stability: nikdo si nepomůže jednostrannou změnou. Ve Vězňově dilematu je jí jen $(D,D)$. Obě množiny jsou tedy **disjunktní**: jediná stabilní situace je zároveň jediná Pareto neoptimální. Racionální sobecké jednání jednotlivců vede ke kolektivně špatnému výsledku, a to je podstata dilematu.
 
 &nbsp;
 
@@ -83,19 +83,19 @@ Propojení s koncepty
 
 **1\. Proč čistě spolupracující populace látek (Always Cooperate) nepředstavuje Evolučně stabilní strategii (ESS)?**
 
-**Odpověď:**&nbsp;
+**Odpověď:** Protože ji snadno napadne mutant `Always Defect`. Ten proti AC získává $T = 5$ za kolo, zatímco AC mezi sebou jen $R = 3$, takže má AD vyšší fitness a selekce ho rozšíří. AC nemá žádný mechanismus odvety ani rozpoznání zrádce. Simulace to potvrdila: z 45× AC + 5× AD zbylo za 10 generací 50× AD. ESS musí mít proti sobě samé vyšší (nebo stejný a proti mutantovi vyšší) zisk než mutant, a to AC nesplňuje.
 
 &nbsp;
 
 **2\. Jakým způsobem simuluje ruletová selekce v programu** simulation.py **tržní prostředí?**
 
-**Odpověď:**&nbsp;
+**Odpověď:** Každý jedinec odehraje sérii zápasů a jeho kumulované skóre funguje jako **fitness (kapitál)**. Pravděpodobnost, že se jedinec dostane do další generace, je úměrná podílu na celkovém skóre: $P_i = \text{Skóre}_i / \sum_j \text{Skóre}_j$. To odpovídá trhu, kde úspěšné strategie získávají větší podíl kapitálu, zákazníků nebo výpočetní kapacity a neúspěšné postupně mizí. Výběr je ale náhodný (s opakováním), takže i slabší strategie může chvíli přežívat a silná může náhodou ztratit (genetický drift / tržní šum).
 
 &nbsp;
 
 **3\. Proč strategie *Tit-for-Tat* dokáže na rozdíl od *Always Cooperate* zastavit invazi zrádců (Always Defect)?**
 
-**Odpověď:**&nbsp;
+**Odpověď:** Protože TFT je **podmíněná spolupráce s odvetou**: začne $C$ a pak kopíruje poslední tah soupeře. Proti zrádci ztratí jen první kolo a dál hraje $D$, takže AD z TFT vytěží jen ~204 bodů za 200 kol, zatímco dvojice TFT–TFT získá 600. Zrádce v populaci TFT tedy má nižší fitness než domácí strategie a vymírá. AC naopak nechá zrádce vykořisťovat se donekonečna (0 vs. 5 v každém kole). V simulaci 45× TFT + 5× AD měli AD v generaci 0 průměr 4 359 bodů oproti 12 358 u TFT a vymřeli.
 
 &nbsp;
 
@@ -141,19 +141,19 @@ Pokud změníme matici odměn na hru **Stag Hunt (Lov na jelena)** s podmínek $
 
 **1\. Jaká klíčová změna v nerovnostech matice odměn transformuje hraniční stabilitu Vězňova dilemata na hru Stag Hunt?**
 
-**Odpověď:**&nbsp;
+**Odpověď:** Prohození pořadí $T$ a $R$. Ve Vězňově dilematu platí $T > R > P > S$ (pokušení zradit je větší než odměna za spolupráci), ve Stag Hunt $R > T > P > S$. Když se spolupráce vyplatí víc než jednostranná zrada, $D$ přestane být dominantní strategií. Nejlepší odpověď na $C$ je $C$ a na $D$ je $D$, takže z hry s jednou rovnováhou vznikne koordinační hra.
 
 &nbsp;
 
 **2\. Kolik ryzích Nashových rovnováh existuje v hře Stag Hunt a které to jsou?**
 
-**Odpověď:**&nbsp;
+**Odpověď:** **Dvě:** $(C,C)$, tedy společný lov jelena, který je Pareto optimální a sociálně nejlepší (4/4), a $(D,D)$, tedy lov zajíce, který je rizikově dominantní a bezpečný (1/1). V žádné z nich si hráč jednostrannou změnou nepomůže: z $(C,C)$ by odchylkou získal $3 < 4$, z $(D,D)$ by získal $0 < 1$. Kromě nich existuje ještě jedna smíšená rovnováha.
 
 &nbsp;
 
 **3\. Proč vyžaduje přechod populace do koordinační rovnováhy $(C,C)$ v hře Stag Hunt explicitní komunikaci nebo signalizaci?**
 
-**Odpověď:**&nbsp;
+**Odpověď:** Protože obě rovnováhy jsou stabilní a hráč volí $C$ jen tehdy, když věří, že soupeř zvolí také $C$. Jinak riskuje nejhorší výsledek $S = 0$, zatímco $D$ je bezpečnější (Minimax volí $D$). Bez sdílené informace racionální hráči sklouznou k rizikově dominantní $(D,D)$. Komunikace, signalizace, reputace nebo závazky (např. veřejný závazek k otevřenému standardu) vytvoří **společné očekávání**, které snižuje riziko a umožní koordinaci na $(C,C)$. Ve Stag Hunt nikdo nemá motivaci lhát, protože $(C,C)$ je nejlepší pro oba, takže signál je důvěryhodný.
 
 &nbsp;
 
@@ -193,19 +193,19 @@ Propojení s koncepty
 
 **1\. Co reprezentuje stav $s$ u jednoduchého $Q$\-learning agenta hrajícího iterované Vězňovo dilema?**
 
-**Odpověď:**&nbsp;
+**Odpověď:** Stav je stručná paměť o průběhu hry, typicky **poslední tah soupeře**. V našem agentovi jsou stavy `START` (první kolo), `C` (soupeř naposledy spolupracoval) a `D` (soupeř naposledy zradil). Pro každý stav agent drží Q-hodnoty akcí $C$ a $D$, tedy odhad dlouhodobého diskontovaného zisku. Stav lze rozšířit o vlastní poslední tah nebo delší historii (např. 4 stavy $CC, CD, DC, DD$), aby agent lépe rozpoznal, jestli soupeř oplácí.
 
 &nbsp;
 
 **2\. Jaký vliv má parametr exploration ($\epsilon$) v $\epsilon$\-greedy strategii na dlouhodobou stabilitu v multiagentní simulaci?**
 
-**Odpověď:**&nbsp;
+**Odpověď:** $\epsilon$ určuje podíl náhodných tahů. Vyšší $\epsilon$ pomáhá objevovat reakce soupeřů a reagovat na změny populace, ale v IPD každá náhodná zrada vyvolá odvetu reciprokých strategií (TFT) a může spustit sérii vzájemných zrad. Agent pak ztrácí body a populace osciluje. Nízké $\epsilon$ přináší stabilitu, ale agent se může zaseknout v podoptimální strategii naučené dříve (např. zrada, když bylo na začátku hodně AD). V praxi se proto používá **klesající $\epsilon$** (z vysokého k téměř nulovému), aby se systém nejprve rozhlédl a pak ustálil v rovnováze.
 
 &nbsp;
 
 **3\. Proč je výcvik $Q$\-learning agenta v populaci jiných učících se agentů (multiagentní prostředí) podstatně náročnější než výcvik v klasickém stacionárním prostředí?**
 
-**Odpověď:**&nbsp;
+**Odpověď:** Kvůli **nestacionaritě**. Klasický Q-learning předpokládá, že prostředí (přechody a odměny) je pevné, a za těchto podmínek má zaručenou konvergenci. V multiagentním systému je ale „prostředí“ tvořeno ostatními agenty, kteří se současně učí a mění chování. Optimální odpověď se tak průběžně posouvá, staré zkušenosti zastarávají a Markovská vlastnost neplatí. Agenti se mohou navzájem „honit“ a oscilovat bez dosažení rovnováhy. Navíc je stavový prostor kvůli kombinaci akcí všech agentů výrazně větší a problematické je přiřazení zásluh (credit assignment). V našem experimentu se agent nejprve naučil zrazovat proti převaze AD, a když AD vymřeli, TFT ho za stejné chování trestal.
 
 &nbsp;
 
