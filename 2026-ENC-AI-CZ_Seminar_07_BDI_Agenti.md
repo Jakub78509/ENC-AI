@@ -156,8 +156,8 @@ Aplikujte nabyté znalosti úpravou projektu `cleaning-robots`. Upravujte kódy 
 ## Závěrečný blok
 
 ### Kontrolní seznam dokončení
-- [ ] jEdit je spuštěn a cesty k `jason.jar` a `ant-libs` jsou korektně nastaveny.
-- [ ] Původní projekt `cleaning-robots` úspěšně zkompiloval a proběhla vizualizace.
+- [x] jEdit je spuštěn a cesty k `jason.jar` a `ant-libs` jsou korektně nastaveny.
+- [x] Původní projekt `cleaning-robots` úspěšně zkompiloval a proběhla vizualizace.
 - [ ] Jsou identifikovány a pochopeny metody `init`, `executeAction` a `updatePercepts` v Javě.
 - [ ] Jsou úspěšně implementovány úpravy chování robotů (přidání spalovače, optimalizace cesty).
 

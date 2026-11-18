@@ -1,0 +1,65 @@
+Cvičení 7
+
+3. architektura prostředí
+
+1. Jakou roli hraje metoda init(String[])?
+
+   Je to konstruktor prostředí Jason ji zavolá jednou při startu
+
+   vytvoří model světa V jeho konstruktoru se vytvoří mřížka 7×7, r1 se postaví na (0,0), r2 doprostřed na (3,3) a rozmístí se odpadky vytvoří vizualizaci (MarsView) a propojí ji s modelem (model.setView(view));
+
+
+2. Jak executeAction(String ag, Structure action) zpracovává akce a parametry?
+
+   Tuhle metodu zavolá Jason pokaždé, když některý agent provede akci v prostředí (např. pick(garb) nebo move_towards(x, y)), a podle jejího názvu a případných souřadnic pak v Javě spustí odpovídající metodu našeho modelu. Pokud akci nezná, vrátí false a akce v plánu selže, jinak aktualizuje okolí, na chvíli uspí vlákno kvůli přehlednosti simulace a dá ostatním agentům vědět, že se prostředí změnilo.
+
+3. Kde přesně se volá updatePercepts()?
+
+   Na dvou místech:
+
+   na konci init(): nastaví počáteční vjemy
+   v executeAction(): po provedení akce v modelu 
+
+
+Kontrolní body, všechny byli splněny.
+
+
+Závěrečné otázky
+
+1. Jak interpret Jason odlišuje volání akcí poskytovaných prostředím od
+   interních akcí agenta? Jaký syntaktický znak k tomu využívá?
+
+   Tečkou na začátku názvu. Akce prostředí se píšou bez prefixu. Např.
+   pick(garb) nebo move_towards(X,Y), a interpret je předá prostředí. 
+   Interní akce začínají tečkou, např print("Hello")provádí je přímo
+   interpret uvnitř agenta bez účasti jakéhokoliv prostředí. Vlastní interní akce
+   napsané v Javě se zapisují s názvem balíčku, např. mylib.akce(...).
+
+2. K čemu přesně slouží kontext plánu a co se stane, pokud kontext v době
+   aktivace triggeru (např. přidání cíle) není splněn?
+
+   Kontext (část za dvojtečkou) je podmínka nad beliefs agenta, která určuje,
+   zda je plán, jehož trigger odpovídá události, v dané
+   situaci také použitelný (aplikovatelný). Díky tomu může mít jeden trigger
+   více plánů pro různé situace.
+
+   Pokud kontext nesplňuje žádný plán:
+   - u cíle (+!g) cíl selže – vznikne událost selhání -!g; pokud pro ni
+     neexistuje plán, celý záměr (intention) se zahodí a Jason vypíše "No applicable plan";
+   - u změny belief (+b) se událost prostě zahodí a nic se nikdy nestane.
+
+3. Jaký je rozdíl mezi dotazovacím plánem (spuštěným znakem ?) a prostým
+   ověřením přesvědčení v kontextu?
+
+   Ověření v kontextu je pasivní dotaz do belief base v okamžiku výběru plánu.
+   Nemá vedlejší efekty a pokud neplatí, plán se jen nepoužije (zkusí se jiný).
+
+   Dotazovací cíl ?b v těle plánu se nejdřív také zeptá belief base, ale pokud
+   odpověď nenajde, vyvolá událost +?b a spustí dotazovací plán,
+   který může informaci aktivněji zjistit – provést akce, přesunout se, zeptat
+   se jiného agenta. Navíc navazuje proměnné použité dál v těle daného plánu
+
+
+KRÁTKÁ SEBEREFLEXE:
+
+Největší zásek pro mě byl přepnout z klasického „krok za krokem“ myšlení na reaktivní model, kde se chování skládá z plánů spouštěných událostmi a řídicí tok tak není vidět na jednom místě. Třeba +garbage(r1) mi najednou přeruší procházení mřížky přes .drop_desire(check(slots)) z úplně jiné části kódu. Při přidání více agentů se navíc ukázalo, že paralelní běh přináší problémy se souběhem při čtení vjemů, které při testování s jedním agentem vůbec nebyly vidět.
