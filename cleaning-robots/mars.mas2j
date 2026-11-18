@@ -1,0 +1,13 @@
+// Příklad cleaning-robots z distribuce Jasonu (kap. 2 manuálu),
+// rozšířený o více spalovačů (úkol 1) a více uklízečů (úkol 3).
+
+MAS mars {
+
+    // argumenty: počet uklízečů, počet spalovačů
+    // (musí odpovídat počtům instancí v sekci agents)
+    environment: MarsEnv(3, 2)
+
+    agents:
+        cleaner #3;   // uklízecí roboti -> cleaner1, cleaner2, cleaner3 (soubor cleaner.asl)
+        burner  #2;   // spalovací roboti -> burner1, burner2 (soubor burner.asl)
+}
